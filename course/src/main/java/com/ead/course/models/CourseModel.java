@@ -48,7 +48,7 @@ public class CourseModel implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//Quando for consulta algum dado ele vai ignorar este campo,só mostrará na desserrialização com alguma escrita
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY) //Lazy: Só carrega quando necessário
-    @Fetch(FetchMode.SUBSELECT) // O default é join
+    @Fetch(FetchMode.SUBSELECT) // permitido apenas em associações do tipo @OneToMany ou @ManyToMany
     private Set<ModuleModel> modules;
 
 }
