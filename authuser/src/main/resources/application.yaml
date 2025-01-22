@@ -16,3 +16,13 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  output:
+    ansi:
+      enabled: Always
+
+logging:
+  level:
+    com.ead: TRACE
+    root: INFO #Envolve todas as classes que tem o framework
+    org.springframework.web: DEBUG # Para ver detalhes de uma requisição
+    org.hibernate: INFO
