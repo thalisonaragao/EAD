@@ -16,3 +16,15 @@ spring:
     properties:
       hibernate:
         show_sql: true
+
+logging:
+  level:
+    com.ead: TRACE
+    root: INFO #Envolve todas as classes que tem o framework
+    org.springframework.web: DEBUG # Para ver detalhes de uma requisição
+    org.hibernate: INFO
+
+ead:
+  api:
+    url:
+      authuser: 'http://localhost:8087'
