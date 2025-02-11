@@ -26,3 +26,8 @@ logging:
     root: INFO #Envolve todas as classes que tem o framework
     org.springframework.web: DEBUG # Para ver detalhes de uma requisição
     org.hibernate: INFO
+
+ead:
+  api:
+    url:
+      course: 'http://localhost:8082'

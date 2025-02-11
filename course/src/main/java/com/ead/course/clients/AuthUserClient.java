@@ -1,8 +1,10 @@
 package com.ead.course.clients;
 
+import com.ead.course.dtos.CourseUserDto;
 import com.ead.course.dtos.ResponsePageDto;
 import com.ead.course.dtos.UserDto;
 import com.ead.course.service.UtilsService;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +23,7 @@ import java.util.UUID;
 
 @Log4j2
 @Component
-public class AuthClient {
+public class AuthUserClient {
     @Autowired
     RestTemplate restTemplate;
 
@@ -29,12 +31,11 @@ public class AuthClient {
     UtilsService utilsService;
 
     @Value("${ead.api.url.authuser}")
-    String REQUEST_URI_AUTHUSER;
-
+    private String REQUEST_URL_AUTHUSER;
 
     public Page<UserDto> getAllCoursesByUser(UUID courseId, Pageable pageable){
         List<UserDto> searchResult = null;
-        String url = REQUEST_URI_AUTHUSER + utilsService.createUrlGetAllUsersByCourses(courseId, pageable);
+        String url = REQUEST_URL_AUTHUSER + utilsService.createUrlGetAllUsersByCourses(courseId, pageable);
         log.debug("Request URL: {}", url);
         log.info("Request URL: {}", url);
         try {
@@ -51,7 +52,13 @@ public class AuthClient {
     }
 
     public ResponseEntity<UserDto> getOneUserById(UUID userId){
-        String url = REQUEST_URI_AUTHUSER + "/users/" + userId;
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId;
         return restTemplate.exchange(url, HttpMethod.GET, null, UserDto.class);
+    }
+
+    public void postSubscriptionUserInCourse(UUID courseId, UUID userId) { //Enviando informação para outro microssevice
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId + "/courses/subscription";
+        var courseUserDto = new CourseUserDto(courseId, userId);
+        restTemplate.postForObject(url, courseUserDto, String.class);
     }
 }

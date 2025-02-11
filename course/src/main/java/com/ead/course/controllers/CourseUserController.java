@@ -1,6 +1,6 @@
 package com.ead.course.controllers;
 
-import com.ead.course.clients.AuthClient;
+import com.ead.course.clients.AuthUserClient;
 import com.ead.course.dtos.SubscriptionDto;
 import com.ead.course.dtos.UserDto;
 import com.ead.course.enums.UserStatus;
@@ -28,7 +28,7 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseUserController {
     @Autowired
-    AuthClient authUserClient;
+    AuthUserClient authUserClient;
 
     @Autowired
     CourseService courseService;
@@ -44,7 +44,7 @@ public class CourseUserController {
 
     @PostMapping("/courses/{courseId}/users/subscription")
     public ResponseEntity<Object> saveSubscriptionUserInCourse(@PathVariable(value = "courseId") UUID courseId,
-                                                               @RequestBody @Valid SubscriptionDto subscription){
+                                                               @RequestBody @Valid SubscriptionDto subscription) {
         ResponseEntity<UserDto> responseUser;
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
         if(!courseModelOptional.isPresent()){
@@ -57,7 +57,7 @@ public class CourseUserController {
         try {
             responseUser = authUserClient.getOneUserById(subscription.getUserId());
             if(responseUser.getBody().getUserStatus().equals(UserStatus.BLOCKED)){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("User is blocked.");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is blocked.");
             }
         }
         catch (HttpStatusCodeException e){
@@ -65,7 +65,8 @@ public class CourseUserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
             }
         }
-       CourseUserModel courseUserModel = courseUserService.save(courseModelOptional.get().convertToCourseUserModel(subscription.getUserId()));
-       return ResponseEntity.status(HttpStatus.CREATED).body(courseUserModel);
+        CourseUserModel courseUserModel = courseUserService.saveAndSendSubscriptionUserInCourse(courseModelOptional.get().convertToCourseUserModel(subscription.getUserId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseUserModel);
     }
 }
+
