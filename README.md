@@ -17,7 +17,7 @@ As principais tecnologias utilizadas no desenvolvimento deste projeto são:
 Siga os passos abaixo para configurar e executar o projeto localmente:  
 
 ### Arquivo Postman Collection
-Você pode baixar o arquivo JSON da coleção do Postman [aqui](https://github.com/thalisonaragao/EAD/blob/main/EAD.postman_collection).
+Você pode baixar o arquivo JSON da coleção do Postman [aqui](https://github.com/thalisonaragao/EAD/blob/main/EAD.postman_collection.json).
 
 ### 1️⃣ Clonar o repositório  
 ```sh
