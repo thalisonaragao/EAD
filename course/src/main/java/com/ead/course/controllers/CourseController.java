@@ -53,11 +53,14 @@ public class CourseController {
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId")UUID courseId){
+        log.debug("DELETE deleteCourse courseId received {} ", courseId);
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
         if(!courseModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course Not Found");
         }
         courseService.delete(courseModelOptional.get());
+        log.debug("DELETE deleteCourse courseId deleted {} ", courseId);
+        log.info("Course deleted successfully courseId {} ", courseId);
         return ResponseEntity.status(HttpStatus.OK).body("Course deleted successfully");
     }
 
@@ -65,6 +68,8 @@ public class CourseController {
     public ResponseEntity<Object> updateCourse(@PathVariable(value = "courseId") UUID courseId,
                                                @RequestBody @Valid CourseDto courseDto){
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
+        log.debug("PUT updateCourse courseDto received {} ", courseDto.toString());
+
         if(!courseModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course Not Found");
         }
@@ -75,6 +80,8 @@ public class CourseController {
         courseModel.setCourseStatus(courseDto.getCourseStatus());
         courseModel.setCourseLevel(courseDto.getCourseLevel());
         courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+        log.debug("PUT updateCourse courseId saved {} ", courseModel.getCourseId());
+        log.info("Course updated successfully courseId {} ", courseModel.getCourseId());
         return ResponseEntity.status(HttpStatus.OK).body(courseService.save(courseModel));
     }
 
