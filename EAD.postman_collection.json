@@ -260,15 +260,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/courses/1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c",
+							"raw": "http://localhost:8082/courses",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8082",
 							"path": [
-								"courses",
-								"1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c"
+								"courses"
 							]
 						}
 					},
@@ -280,15 +279,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8087/users/",
+							"raw": "http://localhost:8082/users/1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8087",
+							"port": "8082",
 							"path": [
 								"users",
-								""
+								"1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c"
 							]
 						}
 					},
@@ -300,12 +299,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8087/users/1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c",
+							"raw": "http://localhost:8082/users/1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8087",
+							"port": "8082",
 							"path": [
 								"users",
 								"1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c"
@@ -327,7 +326,27 @@
 									"language": "json"
 								}
 							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/users/1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"1c587cbd-cc4b-4a8d-9147-2ac7c8a5091c"
+							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST COURSE",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -407,7 +426,7 @@
 			"name": "INSTRUCTORS",
 			"item": [
 				{
-					"name": "INSTRUCTORS",
+					"name": "POST INSTRUCTORS",
 					"request": {
 						"method": "POST",
 						"header": [],
