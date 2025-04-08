@@ -61,4 +61,9 @@ public class AuthUserClient {
         var courseUserDto = new CourseUserDto(courseId, userId);
         restTemplate.postForObject(url, courseUserDto, String.class);
     }
+
+    public void deleteCourseInAuthUser(UUID courseId){
+        String url = REQUEST_URL_AUTHUSER + "/users/courses/" + courseId; // Mesma url do delete no UserCourseController
+        restTemplate.exchange(url, HttpMethod.DELETE, null, String.class); // Enviar essa requisição para o authUser
+    }
 }

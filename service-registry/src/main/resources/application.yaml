@@ -7,5 +7,5 @@ spring:
 
 eureka:
   client:
-    registerWithEureka: false #Não quer que seja cliente, mas sim servidor
+    registerWithEureka: false #NÃ£o quer que seja cliente, mas sim servidor
     fetchRegistry: false
