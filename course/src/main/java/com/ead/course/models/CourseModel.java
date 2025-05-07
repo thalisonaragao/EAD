@@ -51,4 +51,12 @@ public class CourseModel implements Serializable {
     @Fetch(FetchMode.SUBSELECT) // permitido apenas em associações do tipo @OneToMany ou @ManyToMany
     private Set<ModuleModel> modules;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "TB_COURSES_USERS",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))//Outro lado da Relação
+    private Set<UserModel> users;
+
 }
