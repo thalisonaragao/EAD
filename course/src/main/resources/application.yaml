@@ -20,6 +20,8 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  rabbitmq:
+    addresses: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
 
 logging:
   level:
