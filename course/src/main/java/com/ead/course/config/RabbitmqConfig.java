@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
 
     @Autowired
-    CachingConnectionFactory cachingConnectionFactory;
+    CachingConnectionFactory cachingConnectionFactory; // que é responsável por criar e manter a conexão com o servidor RabbitMQ.
 
     @Bean
     public RabbitTemplate rabbitTemplate() {
@@ -24,8 +24,8 @@ public class RabbitmqConfig {
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
+        ObjectMapper objectMapper = new ObjectMapper(); // Converte java em json
+        objectMapper.registerModule(new JavaTimeModule()); // Permite serializar os tipos data
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 
