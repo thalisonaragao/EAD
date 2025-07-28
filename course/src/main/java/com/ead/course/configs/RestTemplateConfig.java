@@ -1,4 +1,4 @@
-package com.ead.course.config;
+package com.ead.course.configs;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -8,9 +8,11 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfig {
+
     @LoadBalanced
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder){  // RestTemplate é uma classe do Spring usada para fazer requisições HTTP para outras APIs.
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
         return builder.build();
     }
 }

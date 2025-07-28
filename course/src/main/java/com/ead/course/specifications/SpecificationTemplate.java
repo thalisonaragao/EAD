@@ -17,29 +17,26 @@ import java.util.Collection;
 import java.util.UUID;
 
 public class SpecificationTemplate {
+
     @And({
             @Spec(path = "courseLevel", spec = Equal.class),
             @Spec(path = "courseStatus", spec = Equal.class),
             @Spec(path = "name", spec = Like.class)
     })
-    public interface CourseSpec extends Specification<CourseModel> {
-    }
+    public interface CourseSpec extends Specification<CourseModel> {}
 
     @And({
-            @Spec(path = "email", spec = Like.class),
+            @Spec(path="email", spec= Like.class),
             @Spec(path = "fullName", spec = Like.class),
-            @Spec(path = "userStatus", spec = Equal.class),
-            @Spec(path = "userType", spec = Equal.class)
-    })
-    public interface UserSpec extends Specification<UserModel>{}
+            @Spec(path="userStatus", spec= Equal.class),
+            @Spec(path="userType", spec= Equal.class)})
+    public interface UserSpec extends Specification<UserModel> {}
 
     @Spec(path = "title", spec = Like.class)
-    public interface ModuleSpec extends Specification<ModuleModel> {
-    }
+    public interface ModuleSpec extends Specification<ModuleModel> {}
 
     @Spec(path = "title", spec = Like.class)
-    public interface LessonSpec extends Specification<LessonModel> {
-    }
+    public interface LessonSpec extends Specification<LessonModel> {}
 
     public static Specification<ModuleModel> moduleCourseId(final UUID courseId) {
         return (root, query, cb) -> {
@@ -77,8 +74,9 @@ public class SpecificationTemplate {
             Root<CourseModel> course = root;
             Root<UserModel> user = query.from(UserModel.class);
             Expression<Collection<CourseModel>> usersCourses = user.get("courses");
-            return cb.and(cb.equal(course.get("userId"), userId), cb.isMember(course, usersCourses));
+            return cb.and(cb.equal(user.get("userId"), userId), cb.isMember(course, usersCourses));
         };
     }
-}
 
+
+}

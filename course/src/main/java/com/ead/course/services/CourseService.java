@@ -1,4 +1,4 @@
-package com.ead.course.service;
+package com.ead.course.services;
 
 import com.ead.course.models.CourseModel;
 import org.springframework.data.domain.Page;
@@ -17,4 +17,7 @@ public interface CourseService {
 
     Page<CourseModel> findAll(Specification<CourseModel> spec, Pageable pageable);
 
+    boolean existsByCourseAndUser(UUID courseId, UUID userId);
+
+    void saveSubscriptionUserInCourse(UUID courseId, UUID userId);
 }

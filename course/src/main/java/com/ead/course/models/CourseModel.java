@@ -1,5 +1,6 @@
 package com.ead.course.models;
 
+
 import com.ead.course.enums.CourseLevel;
 import com.ead.course.enums.CourseStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,6 +24,7 @@ public class CourseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID courseId;
     @Column(nullable = false, length = 150)
     private String name;
@@ -30,11 +32,11 @@ public class CourseModel implements Serializable {
     private String description;
     @Column
     private String imageUrl;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime creationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -45,17 +47,17 @@ public class CourseModel implements Serializable {
     @Column(nullable = false)
     private UUID userInstructor;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//Quando for consulta algum dado ele vai ignorar este campo,só mostrará na desserrialização com alguma escrita
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY) //Lazy: Só carrega quando necessário
-    @Fetch(FetchMode.SUBSELECT) // permitido apenas em associações do tipo @OneToMany ou @ManyToMany
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY )
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ModuleModel> modules;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "TB_COURSES_USERS",
+    @JoinTable(    name = "TB_COURSES_USERS",
             joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))//Outro lado da Relação
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserModel> users;
+
 
 }

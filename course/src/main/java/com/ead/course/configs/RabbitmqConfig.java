@@ -1,4 +1,4 @@
-package com.ead.course.config;
+package com.ead.course.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
 
     @Autowired
-    CachingConnectionFactory cachingConnectionFactory; // que é responsável por criar e manter a conexão com o servidor RabbitMQ.
+    CachingConnectionFactory cachingConnectionFactory;
 
     @Bean
     public RabbitTemplate rabbitTemplate() {
@@ -24,10 +24,9 @@ public class RabbitmqConfig {
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper(); // Converte java em json
-        objectMapper.registerModule(new JavaTimeModule()); // Permite serializar os tipos data
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 
 }
-
