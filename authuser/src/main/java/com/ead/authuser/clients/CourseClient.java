@@ -4,6 +4,7 @@ import com.ead.authuser.dtos.CourseDto;
 import com.ead.authuser.dtos.ResponsePageDto;
 import com.ead.authuser.service.UtilsService;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +35,7 @@ public class CourseClient {
     @Value("${ead.api.url.course}")
     String REQUEST_URL_COURSE;
 
+    //@Retry(name = "retryInstance", fallbackMethod = "retryfallback")
     public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
         List<CourseDto> searchResult = null;
         String url = REQUEST_URL_COURSE+utilsService.createUrlGetAllCourseByUser(userId, pageable);
@@ -47,6 +50,12 @@ public class CourseClient {
         catch (HttpStatusCodeException e){
             log.error("Error request /courses {} ", e);
         }
+        return new PageImpl<>(searchResult);
+    }
+
+    public Page<CourseDto> retryfallback(UUID userId, Pageable pageable, Throwable t) {
+        log.error("Inside retry retryfallback, cause - {}", t.toString());
+        List<CourseDto> searchResult = new ArrayList<>();
         return new PageImpl<>(searchResult);
     }
 }
