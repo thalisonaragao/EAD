@@ -1,0 +1,67 @@
+server:
+  port: 8087
+  servlet:
+    context-path: '/ead-authuser/'
+
+spring:
+  application:
+    name: ead-authuser-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ead-authuser-v2
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver  # Defina explicitamente o driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc:
+        lob.non-contextual-creation: true
+    properties:
+      hibernate:
+        show_sql: true
+  rabbitmq:
+    addresses: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
+
+logging:
+  level:
+    com.ead: TRACE
+    root: INFO #Envolve todas as classes que tem o framework
+    org.springframework.web: DEBUG # Para ver detalhes de uma requisição
+    org.hibernate: INFO
+
+ead:
+  api:
+    url:
+      course: 'http://ead-course-service/ead-course'
+  broker:
+    exchange:
+      userEvent: ead.userevent #exchange
+
+authuser:
+  refreshscope:
+    name: Thalison Aragão
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      circuitbreakerInstance:
+        slidingWindowSize: 30 # Tamanho da janela, vai analisar se foi ok ou tiveram falhas
+        permittedNumberOfCallsInHalfOpenState: 2 # meio aberto após duas solicitações
+        slidingWindowType: TIME_BASED #Baseado em tempo
+        minimumNumberOfCalls: 2
+        waitDurationInOpenState: 30s
+        failureRateThreshold: 80 #Taxa de falha
+  retry:
+    instances:
+      retryInstance:
+        maxRetryAttempts: 3
+        waitDuration: 5s

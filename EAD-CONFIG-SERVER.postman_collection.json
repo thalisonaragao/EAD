@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "8c77f66f-0a38-4ed8-934b-e9f8883dd2b4",
+		"name": "EAD-CONFIG-SERVER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34291366"
+	},
+	"item": [
+		{
+			"name": "TEST REFRESHSCOPE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8087/ead-authuser/refreshscope",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"ead-authuser",
+						"refreshscope"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTHUSER Configs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/ead-authuser-service/main",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"ead-authuser-service",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APPLICATION Global Configs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/application/main",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"application",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REFRESH ACTUATOR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8087/ead-authuser/actuator/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"ead-authuser",
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
