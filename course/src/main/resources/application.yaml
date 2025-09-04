@@ -1,49 +1,56 @@
-server:
-  port: 8082
-  servlet:
-    context-path: '/ead-course/'
+#server:
+#  port: 8082
+#  servlet:
+#    context-path: '/ead-course/'
 
 spring:
   application:
     name: ead-course-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ead-course-v2
-    username: postgres
-    password: 123456
-    driver-class-name: org.postgresql.Driver  # Defina explicitamente o driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.PostgresSQLDialect
-      jdbc:
-        lob.non-contextual-creation: true
-    properties:
-      hibernate:
-        show_sql: true
-  rabbitmq:
-    addresses: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
+  config:
+    import: 'configserver:'
+  cloud:
+    config:
+      discovery:
+        serviceId: ead-config-server
 
-logging:
-  level:
-    com.ead: TRACE
-    root: INFO #Envolve todas as classes que tem o framework
-    org.springframework.web: DEBUG # Para ver detalhes de uma requisição
-    org.hibernate: INFO
-
-ead:
-  api:
-    url:
-      authuser: 'http://ead-authuser-service/ead-authuser'
-  broker:
-    exchange:
-      userEventExchange: ead.userevent
-    queue:
-      userEventQueue:
-        name: ead.userevent.ms.course
-
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname: localhost
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/ead-course-v2
+#    username: postgres
+#    password: 123456
+#    driver-class-name: org.postgresql.Driver  # Defina explicitamente o driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#      dialect: org.hibernate.dialect.PostgresSQLDialect
+#      jdbc:
+#        lob.non-contextual-creation: true
+#    properties:
+#      hibernate:
+#        show_sql: true
+#  rabbitmq:
+#    addresses: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
+#
+#logging:
+#  level:
+#    com.ead: TRACE
+#    root: INFO #Envolve todas as classes que tem o framework
+#    org.springframework.web: DEBUG # Para ver detalhes de uma requisição
+#    org.hibernate: INFO
+#
+#ead:
+#  api:
+#    url:
+#      authuser: 'http://ead-authuser-service/ead-authuser'
+#  broker:
+#    exchange:
+#      userEventExchange: ead.userevent
+#    queue:
+#      userEventQueue:
+#        name: ead.userevent.ms.course
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: 'http://localhost:8761/eureka'
+#  instance:
+#    hostname: localhost
