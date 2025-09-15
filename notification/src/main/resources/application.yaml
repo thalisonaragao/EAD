@@ -29,7 +29,7 @@ spring:
     ansi:
       enabled: Always
   rabbitmq:
-    address: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
+    addresses: amqps://nydghmfd:qzvzf8UbYW5a7T8-oSgALk61CcqtSTiE@possum.lmq.cloudamqp.com/nydghmfd
 
 
 logging:
@@ -40,8 +40,15 @@ logging:
     org.hibernate: INFO
 
 
-# inserir broker properties
-
+ead:
+  broker:
+    exchange:
+      notificationCommandExchange: ead.notificationcommand
+    queue:
+      notificationCommandQueue:
+        name: ead.notificationcommand.ms.notification
+    key:
+      notificationCommandKey: ms.notification
 
 management:
   endpoints:
