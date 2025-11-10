@@ -1,4 +1,4 @@
-package com.ead.config_server;
+package com.ead.config.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
